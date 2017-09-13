@@ -1,0 +1,25 @@
+@mixin linkreset {
+  text-decoration: none;
+  color: inherit;
+}
+
+@mixin listreset {
+  padding-left:0;
+  list-style: none;
+}
+
+
+@mixin font ($size: 1em, $weight: 300, $color: $maincolor) {
+  font-size: $size;
+  font-weight: $weight;
+  color: $color;
+  font-family: 'NeueKabel';
+}
+
+@mixin transition ($prop: all, $time: .2s, $ease: ease-in-out) {
+  -webkit-transition: $prop $time $ease;
+  -moz-transition: $prop $time $ease;
+  -ms-transition: $prop $time $ease;
+  -o-transition: $prop $time $ease;
+  transition: $prop $time $ease;
+}

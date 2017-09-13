@@ -1,0 +1,688 @@
+@import "mixin";
+@import "vars";
+
+/* RESET */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  @include font(1em, 300);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+/* HELPER CLASSES */
+
+.visibility-hidden {
+  visibility: hidden;
+}
+
+.hiddenOnDesktop {
+  display: none;
+}
+
+/* ----------
+----FONT----
+----------*/
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-Light.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-Light.ttf');
+  font-weight: 200;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-LightItalic.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-LightItalic.ttf');
+  font-weight: 200;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-Regular.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-Regular.ttf');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-Book.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-Book.ttf');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-BookItalic.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-BookItalic.ttf');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-Medium.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-Medium.ttf');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-MediumItalic.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-MediumItalic.ttf');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-Bold.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-Bold.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'NeueKabel';
+  src: url('../fonts/NeueKabel/NeueKabel-BoldItalic.ttf'),
+  url('../fonts/NeueKabel/NeueKabel-BoldItalic.ttf');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* ----------------
+ ----- HEADER ----
+  --------------*/
+
+header {
+  position: relative;
+  width: 100%;
+  padding: $cnt_padding;
+
+  & .nav {
+    margin: 1% 0;
+    padding: $cnt_padding;
+    left: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    height: 8vh;
+    z-index: 30;
+    position: fixed;
+
+    &__burger {
+      position: relative;
+      flex-basis: 20%;
+      height: 50px;
+      cursor: pointer;
+
+      & span {
+        width: 50px;
+        height: 2px;
+        display: block;
+        position: absolute;
+        background-color: $maincolor;
+        @include transition(null, .3s, cubic-bezier(0.215, 0.61, 0.355, 1));
+
+        &:nth-child(1) {
+          top: 14px;
+
+          &.open {
+
+          }
+        }
+
+        &:nth-child(2) {
+          top: 24px;
+          transform-origin: 0% 50%;
+          -webkit-transform-origin: 0% 50%;
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+
+          &.open {
+            -webkit-transform: scaleX(0.75);
+            transform: scaleX(0.75);
+          }
+        }
+
+        &:nth-child(3) {
+          top: 34px;
+          transform-origin: 0% 50%;
+          -webkit-transform-origin: 0% 50%;
+          -webkit-transform: scaleX(1);
+          transform: scaleX(1);
+
+          &.open {
+            -webkit-transform: scaleX(0.35);
+            transform: scaleX(0.35);
+          }
+        }
+
+      }
+      &:hover span {
+        background-color: $acc_color;
+      }
+    }
+
+    &__logo {
+      flex-basis: 60%;
+
+      & h1 {
+        margin-top: 0.5%;
+        font-size: 2.35em;
+        font-weight: 200;
+
+        & a {
+          @include linkreset;
+        }
+      }
+    }
+
+    &__breadcr {
+      flex-basis: 20%;
+      text-align: right;
+
+      & h2 {
+        font-size: 2em;
+        font-weight: 200;
+        position: relative;
+        display: block;
+
+      }
+    }
+
+    &__overlay {
+      visibility: hidden;
+      opacity: 0;
+      width: 40vw;
+      height: 90vh;
+      background-color: rgba(225, 225, 225, 0.85);
+      @include transition(null, .3s, null);
+      position: fixed;
+      top: 5vh;
+      left: 50%;
+      transform: translateX(-50%);
+      -webkit-transform: translateX(-50%);
+
+      &__exit {
+        position: absolute;
+        top: 2.5%;
+        right: 10%;
+        cursor: pointer;
+        width: 35px;
+        height: 35px;
+
+        & span {
+          display: block;
+          position: absolute;
+          width: 100%;
+          height: 2px;
+          background-color: $maincolor;
+          @include transition(null, .3s, null);
+
+          &:nth-child(1) {
+            top: 50%;
+            transform: translateY(-50%) rotate(225deg);
+            -webkit-transform: translateY(-50%) rotate(225deg);
+          }
+          &:nth-child(2) {
+            top: 50%;
+            transform: translateY(-50%) rotate(-225deg);
+            -webkit-transform: translateY(-50%) rotate(-225deg);
+          }
+        }
+        &:hover span {
+          background-color: $acc_color;
+
+        }
+      }
+
+      &__list {
+        @include listreset;
+        width: 100%;
+        padding-top: 30%;
+
+        &__item {
+          width: 100%;
+          text-align: center;
+          font-size: 1.65em;
+          position: relative;
+
+          &:after {
+            content: '';
+            display: block;
+            position: absolute;
+            width: 10%;
+            height: 1px;
+            z-index: -1;
+            left: 50%;
+            bottom: 0.7em;
+            background-color: $maincolor;
+            transform: translateX(-50%) scaleX(0);
+            @include transition(null, .35s, cubic-bezier(0.215, 0.61, 0.355, 1));
+          }
+
+          &:hover:after {
+            transform: translateX(-50%) scaleX(1);
+          }
+
+          & a {
+            display: block;
+            padding: 0.65em 0;
+            @include linkreset;
+          }
+        }
+      }
+    }
+
+    & .showMenu {
+      opacity: 1;
+      visibility: visible;
+      @include transition(all, .25s, ease-in-out);
+    }
+
+  }
+  .hero {
+    padding: $cnt_padding;
+    width: 100%;
+    height: 92vh;
+    padding-top: calc(8vh + 2%);
+
+    &__title {
+      width: 50%;
+      height: 100%;
+      display: inline-block;
+      text-align: center;
+      display: inline-flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      justify-content: center;
+      margin-top: -2%;
+      padding-right: 8.5%;
+
+      & h3 {
+        font-weight: 200;
+        letter-spacing: 2px;
+        font-size: 3em;
+      }
+
+      & span {
+        font-size: 1.5em;
+        font-weight: 100;
+        opacity: 0.8;
+        background: white;
+
+      }
+
+      &__arr {
+        border: solid $maincolor;
+        border-width: 0 2px 2px 0;
+        display: inline-block;
+        padding: 5px;
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+      }
+    }
+    &__img {
+      width: 50%;
+      height: 100%;
+      float: right;
+      text-align: right;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      max-width: 35em;
+      &:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+      & img {
+        display: inline-block;
+        width: 100%;
+      }
+    }
+  }
+
+}
+
+.header_home {
+  height: 100vh;
+}
+
+.main {
+  display: flex;
+  width: 100%;
+  padding: $cnt_padding;
+  padding-top: 5em;
+  /*height: 100vh;*/
+
+  &__menu {
+    flex-basis: 20%;
+    margin-top: 3em;
+    position: relative;
+
+    &__list {
+      @include listreset;
+      margin: 0;
+      margin-left: 1.35em;
+
+      &__item {
+
+        & a {
+          display: block;
+          padding: 0.25em 0;
+          font-size: 1.2em;
+          font-weight: 100;
+          @include linkreset;
+          @include transition(null, .25s, ease);
+
+          &:hover {
+            color: $acc_color;
+          }
+        }
+      }
+    }
+
+    &__one, &__two {
+
+      & h3 {
+        font-weight: 200;
+        font-size: 2em;
+
+        & a {
+          @include linkreset;
+          display: block;
+        }
+      }
+    }
+
+    &__two {
+      margin-top: 2em;
+    }
+
+    &.fixed {
+      position: fixed;
+      left: 10%;
+      top:15.5%;
+
+      & .main__menu__list {
+
+
+        &__item {
+
+          & a {
+
+          }
+        }
+      }
+    }
+  }
+
+
+  &__content {
+    flex-basis: 80%;
+
+
+    &__cnt {
+
+
+      &__list {
+        @include listreset;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-flow: row wrap;
+
+        &__item {
+          flex-basis: calc(25% - 4%);
+          text-align: center;
+          margin: 1% 0;
+
+          & a {
+            display: block;
+
+            & img {
+              width: 100%;
+            }
+            & img[src*="prtrt"] {
+              width: 65%;
+            }
+          }
+        }
+
+      }
+
+    }
+    &.fixed {
+      margin-left: 20%;
+    }
+  }
+}
+
+/* -------------------------
+ ---------- FOOTER ---------
+ -------------------------*/
+
+.footer {
+  margin-bottom: 2em;
+
+  &-cnt {
+    width: 100%;
+    padding: $cnt_padding;
+
+
+    &__list {
+
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      @include listreset;
+
+
+      &__item {
+        @include transition(all, .35s, ease-out);
+
+        & a {
+          display: block;
+          @include linkreset;
+        }
+        &:nth-child(2n) {
+          margin: 0 1%;
+        }
+        &:hover {
+          color: $acc_color;
+        }
+      }
+    }
+  }
+
+}
+
+
+
+
+
+
+/* -------------------------
+ ------- MEDIA QUERIES ------
+ -------------------------*/
+
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  header {
+
+    & .nav {
+      &__overlay {
+        width: 80vw;
+        &__list{
+          display: flex;
+          flex-flow: column;
+          align-items: center;
+          align-content: center;
+          justify-content: center;
+        }
+      }
+
+    }
+    .hero {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__title {
+        width: 100%;
+        padding-right: 0;
+        position: absolute;
+        top: 80vh;
+        height: 20vh;
+        left: 0;
+        h3 {
+          background: white;
+          padding: .1em .5em;
+        }
+      }
+      &__img {
+        width: auto;
+        float: none;
+        img {
+          width: auto;
+          height: 73vh;
+
+        }
+      }
+    }
+
+  }
+  .main {
+    height: 100vh;
+    &__menu{
+      font-size: 2vw;
+    }
+    &__content {
+      margin-top: 2em;
+      margin-left: 2em;
+      &__cnt {
+        &__list {
+          &__item {
+            flex-basis: calc(33% - 2%);
+            width: calc(33% - 2%);
+            float: left;
+            &:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+          }
+        }
+      }
+    }
+
+  }
+}
+
+@media screen and (min-width: 0px) and (max-width: 767px) {
+  header {
+    padding: 0 5%;
+    & .nav {
+      padding: 0 7%;
+      &__burger{
+        span{
+          width:34px;
+        }
+      }
+      &__logo{
+        font-size: 2.5vw;
+        padding-left: 0.5vw;
+        margin-top: 0.5em;
+      }
+      &__overlay {
+        width: 80vw;
+        &__list{
+          display: flex;
+          flex-flow: column;
+          align-items: center;
+          align-content: center;
+          justify-content: center;
+        }
+      }
+      &__breadcr{
+        font-size: 2.5vw;
+      }
+    }
+    .hero {
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &__title {
+        width: 100%;
+        padding-right: 0;
+        position: absolute;
+        top: 80vh;
+        left: 0;
+        height: 20vh;
+        h3 {
+          background: white;
+          padding: .1em .5em;
+          font-size: 8vw;
+        }
+
+      }
+      &__img {
+        width: auto;
+        float: none;
+        img {
+          width: auto;
+          height: 66vh;
+
+        }
+      }
+    }
+
+  }
+  .main {
+    height: 100vh;
+    padding: 0 5%;
+    padding-top: 10%;
+    &__menu{
+      font-size: 3vw;
+      margin-top: 5em;
+    }
+    &__content {
+      margin-top: 2em;
+      margin-left: 2em;
+      &__cnt {
+        &__list {
+          &__item {
+            flex-basis: calc(40% - 2%);
+            width: calc(40% - 2%);
+            float: left;
+            &:after {
+              content: "";
+              display: table;
+              clear: both;
+            }
+
+          }
+        }
+      }
+    }
+
+  }
+}
+
+
+
+
